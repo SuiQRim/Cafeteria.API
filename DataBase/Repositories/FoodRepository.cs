@@ -44,9 +44,9 @@ namespace Profit_Food.API.DataBase.Repositories
 			
 			entity.Price = food.Price;
 			entity.Kcal = food.Kcal;
-			entity.Name = food.Name;
+			entity.Name = food.Name; 
 			entity.CatalogId = food.CatalogId;
-			 
+
 			await _context.SaveChangesAsync();	
 		}
 	}
