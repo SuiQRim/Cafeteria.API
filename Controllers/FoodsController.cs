@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Profit_Food.API.DataBase.Repositories;
 using Profit_Food.API.Models;
+using Profit_Food.API.Repositories;
 
 namespace Profit_Food.API.Controllers
 {

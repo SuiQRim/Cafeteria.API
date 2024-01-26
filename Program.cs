@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Profit_Food.API.DataBase;
-using Profit_Food.API.DataBase.Repositories;
+using Profit_Food.API.Repositories;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +9,7 @@ builder.Services.AddDbContext<FoodstuffsApiContext>(
 	o => o.UseInMemoryDatabase("FoodstuffsDB"));
 
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+builder.Services.AddScoped<IFoodCatalogRepository, FoodCatalogRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

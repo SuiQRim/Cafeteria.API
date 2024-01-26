@@ -85,7 +85,7 @@ namespace Profit_Food.API.DataBase
 			modelBuilder.Entity<Food>().HasData(foods);
 
 		}
-		public DbSet<FoodCatalog> FoodCatalog { get; set; } = default!;
+		public DbSet<FoodCatalog> FoodCatalogs { get; set; } = default!;
 
 		
 	}
