@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Profit_Food.API.Repositories;
 using Profit_Food.API.Models;
 using Profit_Food.API.Models.DTO;
 using Profit_Food.API.Mappers;
+using ProfitTest_Сafeteria.API.Services.Repositories;
 
 namespace Profit_Food.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class FoodCatalogsController : ControllerBase
 	{

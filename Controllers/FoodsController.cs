@@ -2,7 +2,7 @@
 using Profit_Food.API.Mappers;
 using Profit_Food.API.Models;
 using Profit_Food.API.Models.DTO;
-using Profit_Food.API.Repositories;
+using ProfitTest_Сafeteria.API.Services.Repositories;
 
 namespace Profit_Food.API.Controllers
 {

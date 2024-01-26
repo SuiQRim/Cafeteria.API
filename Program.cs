@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Profit_Food.API.DataBase;
 using Profit_Food.API.Middlewares;
-using Profit_Food.API.Repositories;
+using ProfitTest_Ñafeteria.API.Services;
+using ProfitTest_Ñafeteria.API.Services.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<FoodstuffsApiContext>(
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 builder.Services.AddScoped<IFoodCatalogRepository, FoodCatalogRepository>();
 
+builder.Services.AddTransient<IFoodCatalogExcel, FoodCatalogExcel>();
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

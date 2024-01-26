@@ -1,6 +1,6 @@
 ﻿using Profit_Food.API.Models;
 
-namespace Profit_Food.API.Repositories
+namespace ProfitTest_Сafeteria.API.Services.Repositories
 {
     public interface IFoodRepository
     {
