@@ -20,23 +20,30 @@ namespace Profit_Food.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
         {
-			List<Food> foods = await _foodRepository.GetFoods();
+			List<Food> foods;
+			try
+			{
+				foods = await _foodRepository.GetFoods();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
 
-			if (foods == null)
-            {
-                return NotFound();
-            }
             return Ok(foods);
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<IEnumerable<Food>>> GetFood(int id)
+		public async Task<ActionResult<Food>> GetFood(int id)
 		{
-			Food? food = await _foodRepository.GetFood(id);
-
-			if (food == null)
+			Food? food;
+			try
 			{
-				return NotFound();
+				food = await _foodRepository.GetFood(id);
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
 			}
 
 			return Ok(food);
@@ -45,7 +52,15 @@ namespace Profit_Food.API.Controllers
 		[HttpPost]
 		public async Task<ActionResult<Food>> AddFood(FoodDTO foodDTO)
 		{
-			await _foodRepository.AddFood(foodDTO.ToFood());
+			try
+			{
+				await _foodRepository.AddFood(foodDTO.ToFood());
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+			
 			return Accepted();
 		}
 
@@ -56,9 +71,9 @@ namespace Profit_Food.API.Controllers
             {
                 await _foodRepository.UpdateFood(id, foodDTO.ToFood());
             }
-            catch (NullReferenceException ex)
+            catch (Exception e)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(e.Message);
             }
 			return Ok();
 		}
@@ -66,7 +81,14 @@ namespace Profit_Food.API.Controllers
 		[HttpDelete]
 		public async Task<ActionResult> RemoveFood(int id)
 		{
-			await _foodRepository.DeleteFood(id);
+			try
+			{
+				await _foodRepository.DeleteFood(id);
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}	
 			return Ok();
 		}
 	}

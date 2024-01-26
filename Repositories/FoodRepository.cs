@@ -13,7 +13,12 @@ namespace Profit_Food.API.Repositories
         }
         public async Task<Food?> GetFood(int id)
         {
-            return await _context.Foods.FindAsync(id);
+            Food? food = await FindById(id);
+
+			if (food == null)
+				throw new NullReferenceException($"Entity (Food) with id {id} is not found");
+
+			return food;
         }
 
         public async Task<List<Food>> GetFoods()
@@ -31,14 +36,19 @@ namespace Profit_Food.API.Repositories
 
         public async Task DeleteFood(int id)
         {
-            _context.Foods.Remove(new Food { Id = id });
+			Food? food = await FindById(id);
+
+			if (food == null)
+				throw new NullReferenceException($"Entity (Food) with id {id} is not found");
+
+			_context.Foods.Remove(food);
             await _context.SaveChangesAsync();
         }
 
 
         public async Task UpdateFood(int id, Food food)
         {
-            var entity = await _context.Foods.FirstOrDefaultAsync(f => f.Id == id);
+			Food? entity = await FindById(id);
 
             if (entity == null)
                 throw new NullReferenceException($"Entity (Food) with id {id} is not found");
@@ -50,5 +60,10 @@ namespace Profit_Food.API.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        private async Task<Food?> FindById(int id)
+        {
+            return await _context.Foods.FindAsync(id);
+		}
     }
 }

@@ -70,7 +70,7 @@ namespace Profit_Food.API.Repositories
         
         public async Task DeleteCatalog(int id)
         {
-            FoodCatalog catalog = await _context.FoodCatalogs.FindAsync(id);
+            FoodCatalog? catalog = await _context.FoodCatalogs.FindAsync(id);
 
 			if (catalog == null)
 				throw new NullReferenceException($"Entity (FoodCatalog) with id {id} is not found");
