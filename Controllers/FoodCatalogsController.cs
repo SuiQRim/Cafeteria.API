@@ -3,6 +3,7 @@ using Profit_Food.API.Repositories;
 using Profit_Food.API.Models;
 using Profit_Food.API.Models.DTO;
 using Profit_Food.API.Mappers;
+using System.IO;
 
 namespace Profit_Food.API.Controllers
 {
@@ -30,6 +31,22 @@ namespace Profit_Food.API.Controllers
 			}
 
 			return Ok(catalog);
+		}
+
+		[HttpGet("excel")]
+		public async Task<IActionResult> GetExcel()
+		{
+			MemoryStream stream;
+			try
+			{
+				stream = await _catalogRepository.GetExcelCatalog();
+				
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+			return File(stream, "application/octet-stream", "FoodCatalog.xlsx");
 		}
 
 

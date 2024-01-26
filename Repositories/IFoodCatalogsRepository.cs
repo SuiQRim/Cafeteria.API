@@ -14,5 +14,7 @@ namespace Profit_Food.API.Repositories
 
         public Task UpdateCatalog(int id, FoodCatalog food);
         public Task DeleteCatalog(int id);
+
+        public Task<MemoryStream> GetExcelCatalog();
     }
 }
