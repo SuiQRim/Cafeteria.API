@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Profit_Food.API.DataBase;
+using Profit_Food.API.Exceptions;
 using Profit_Food.API.Models;
 
 namespace Profit_Food.API.Repositories
@@ -16,7 +17,7 @@ namespace Profit_Food.API.Repositories
             Food? food = await FindById(id);
 
 			if (food == null)
-				throw new NullReferenceException($"Entity (Food) with id {id} is not found");
+				throw new EntityNotFoundExceptions(typeof(Food), id.ToString());
 
 			return food;
         }
@@ -39,7 +40,7 @@ namespace Profit_Food.API.Repositories
 			Food? food = await FindById(id);
 
 			if (food == null)
-				throw new NullReferenceException($"Entity (Food) with id {id} is not found");
+				throw new EntityNotFoundExceptions(typeof(Food), id.ToString());
 
 			_context.Foods.Remove(food);
             await _context.SaveChangesAsync();
@@ -50,10 +51,10 @@ namespace Profit_Food.API.Repositories
         {
 			Food? entity = await FindById(id);
 
-            if (entity == null)
-                throw new NullReferenceException($"Entity (Food) with id {id} is not found");
+			if (food == null)
+				throw new EntityNotFoundExceptions(typeof(Food), id.ToString());
 
-            entity.Price = food.Price;
+			entity.Price = food.Price;
             entity.Kcal = food.Kcal;
             entity.Name = food.Name;
             entity.CatalogId = food.CatalogId;

@@ -4,6 +4,7 @@ using Profit_Food.API.Models;
 using OfficeOpenXml;
 using System.Drawing;
 using OfficeOpenXml.Style;
+using Profit_Food.API.Exceptions;
 
 namespace Profit_Food.API.Repositories
 {
@@ -21,7 +22,7 @@ namespace Profit_Food.API.Repositories
                 await _context.FoodCatalogs.SingleOrDefaultAsync(c => c.Id == id);
 
 			if (catalog == null)
-				throw new NullReferenceException($"Entity (FoodCatalog) with id {id} is not found");
+				throw new EntityNotFoundExceptions(typeof(FoodCatalog), id.ToString());
 
 			return catalog;
         }
@@ -31,7 +32,7 @@ namespace Profit_Food.API.Repositories
                 await _context.FoodCatalogs.Include(c => c.Foods).SingleOrDefaultAsync(c => c.Id == id);
 
 			if (catalog == null)
-				throw new NullReferenceException($"Entity (FoodCatalog) with id {id} is not found");
+				throw new EntityNotFoundExceptions(typeof(FoodCatalog), id.ToString());
 
 			return catalog;
         }
@@ -65,7 +66,7 @@ namespace Profit_Food.API.Repositories
 			var entity = await _context.FoodCatalogs.FirstOrDefaultAsync(f => f.Id == id);
 
 			if (entity == null)
-				throw new NullReferenceException($"Entity (FoodCatalog) with id {id} is not found");
+				throw new EntityNotFoundExceptions(typeof(FoodCatalog), id.ToString());
 
 			entity.Name = catalog.Name;
 			await _context.SaveChangesAsync();
@@ -76,7 +77,7 @@ namespace Profit_Food.API.Repositories
             FoodCatalog? catalog = await _context.FoodCatalogs.FindAsync(id);
 
 			if (catalog == null)
-				throw new NullReferenceException($"Entity (FoodCatalog) with id {id} is not found");
+				throw new EntityNotFoundExceptions(typeof(FoodCatalog), id.ToString());
 
 			_context.FoodCatalogs.Remove(catalog);
             await _context.SaveChangesAsync();
@@ -95,7 +96,7 @@ namespace Profit_Food.API.Repositories
 				int top = 1;
 				for (int i = 0; i < catalogs.Count; i++, top++)
 				{
-                    sheet.Cells[top, -1, top, 6].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    sheet.Cells[top, 1, top, 6].Style.Fill.PatternType = ExcelFillStyle.Solid;
                     sheet.Cells[top, 1, top, 6].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
 
 					sheet.Cells[top, 1].Value = catalogs[i].Id;

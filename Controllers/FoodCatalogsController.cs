@@ -3,7 +3,6 @@ using Profit_Food.API.Repositories;
 using Profit_Food.API.Models;
 using Profit_Food.API.Models.DTO;
 using Profit_Food.API.Mappers;
-using System.IO;
 
 namespace Profit_Food.API.Controllers
 {
@@ -20,32 +19,16 @@ namespace Profit_Food.API.Controllers
         [HttpGet("{id}")]
 		public async Task<ActionResult<FoodCatalog>> GetCatalog(int id)
 		{
-			FoodCatalog catalog;
-			try
-			{
-				catalog = await _catalogRepository.GetCatalog(id);		
-            }
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
-
+			FoodCatalog catalog = await _catalogRepository.GetCatalog(id);
+	
 			return Ok(catalog);
 		}
 
 		[HttpGet("excel")]
 		public async Task<IActionResult> GetExcel()
 		{
-			MemoryStream stream;
-			try
-			{
-				stream = await _catalogRepository.GetExcelCatalog();
-				
-			}
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
+			MemoryStream stream = await _catalogRepository.GetExcelCatalog();		
+
 			return File(stream, "application/octet-stream", "FoodCatalog.xlsx");
 		}
 
@@ -53,74 +36,39 @@ namespace Profit_Food.API.Controllers
 		[HttpGet("withFood/{id}")]
 		public async Task<ActionResult<FoodCatalog>> GetCatalogWithFood(int id)
 		{
-			FoodCatalog catalog;
-			try
-			{
-				catalog = await _catalogRepository.GetCatalogWithFood(id);
-			}
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
-
+			FoodCatalog catalog = await _catalogRepository.GetCatalogWithFood(id);
+	
 			return Ok(catalog);
 		}
 
 		[HttpGet("collection")]
 		public async Task<ActionResult<IEnumerable<FoodCatalog>>> GetCatalogs()
 		{
-			IEnumerable<FoodCatalog> catalogs;
-			try
-			{
-				catalogs = await _catalogRepository.GetCatalogs();
-			}
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
+			IEnumerable<FoodCatalog> catalogs = await _catalogRepository.GetCatalogs();
+
 			return Ok(catalogs);
 		}
 
 		[HttpGet("collection/withFood")]
 		public async Task<ActionResult<IEnumerable<FoodCatalog>>> GetCatalogsWithFood()
 		{
-			IEnumerable<FoodCatalog> catalogs;
-			try
-			{
-				catalogs = await _catalogRepository.GetCatalogsWithFood();
-			}
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
+			IEnumerable<FoodCatalog> catalogs = await _catalogRepository.GetCatalogsWithFood();
+
 			return Ok(catalogs);
 		}
 
 		[HttpPost()]
 		public async Task<ActionResult> AddCatalog(FoodCatalogDTO catalog)
 		{
-			try
-			{
-				await _catalogRepository.AddCatalog(catalog.ToFoodCatalog());
-			}
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
+			await _catalogRepository.AddCatalog(catalog.ToFoodCatalog());
+
 			return Ok();
 		}
 
 		[HttpPut("{id}")]
 		public async Task<ActionResult> UpdateCatalog(int id, FoodCatalogDTO catalog)
 		{
-			try
-			{
-				await _catalogRepository.UpdateCatalog(id, catalog.ToFoodCatalog());
-			}
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
+			await _catalogRepository.UpdateCatalog(id, catalog.ToFoodCatalog());
 
 			return Accepted(catalog);
 		}
@@ -128,14 +76,8 @@ namespace Profit_Food.API.Controllers
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> DeleteCatalog(int id)
 		{
-			try
-			{
-				await _catalogRepository.DeleteCatalog(id);
-			}
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
+			await _catalogRepository.DeleteCatalog(id);
+
 			return Ok();
 		}
 
