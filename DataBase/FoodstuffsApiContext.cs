@@ -12,6 +12,8 @@ namespace Profit_Food.API.DataBase
 		}
 
         public DbSet<Food> Foods { get; set; }
+		public DbSet<FoodCatalog> FoodCatalogs { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<FoodCatalog>()
@@ -36,7 +38,7 @@ namespace Profit_Food.API.DataBase
 				},
 			};
 
-			var foods = new List<Food>() { 
+			List<Food> foods = new () { 
 				new (){
 					Id = 1,
 					Name = "Hamburger",
@@ -85,8 +87,5 @@ namespace Profit_Food.API.DataBase
 			modelBuilder.Entity<Food>().HasData(foods);
 
 		}
-		public DbSet<FoodCatalog> FoodCatalogs { get; set; } = default!;
-
-		
 	}
 }
