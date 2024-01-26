@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Profit_Food.API.Mappers;
 using Profit_Food.API.Models;
+using Profit_Food.API.Models.DTO;
 using Profit_Food.API.Repositories;
 
 namespace Profit_Food.API.Controllers
@@ -41,19 +43,18 @@ namespace Profit_Food.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Food>> AddFood(Food food)
+		public async Task<ActionResult<Food>> AddFood(FoodDTO foodDTO)
 		{
-			await _foodRepository.AddFood(food);
-			
-			return Accepted(food);
+			await _foodRepository.AddFood(foodDTO.ToFood());
+			return Accepted();
 		}
 
 		[HttpPut("{id}")]
-		public async Task<ActionResult> UpdateFood(int id, Food food)
+		public async Task<ActionResult> UpdateFood(int id, FoodDTO foodDTO)
 		{
-            try
+			try
             {
-                await _foodRepository.UpdateFood(id, food);
+                await _foodRepository.UpdateFood(id, foodDTO.ToFood());
             }
             catch (NullReferenceException ex)
             {

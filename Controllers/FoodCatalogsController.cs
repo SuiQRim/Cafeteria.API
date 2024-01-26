@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Profit_Food.API.Repositories;
 using Profit_Food.API.Models;
+using Profit_Food.API.Models.DTO;
+using Profit_Food.API.Mappers;
 
 namespace Profit_Food.API.Controllers
 {
@@ -78,11 +80,11 @@ namespace Profit_Food.API.Controllers
 		}
 
 		[HttpPost()]
-		public async Task<ActionResult> AddCatalog(FoodCatalog catalog)
+		public async Task<ActionResult> AddCatalog(FoodCatalogDTO catalog)
 		{
 			try
 			{
-				await _catalogRepository.AddCatalog(catalog);
+				await _catalogRepository.AddCatalog(catalog.ToFoodCatalog());
 			}
 			catch (Exception e)
 			{
@@ -92,11 +94,11 @@ namespace Profit_Food.API.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public async Task<ActionResult> UpdateCatalog(int id, FoodCatalog catalog)
+		public async Task<ActionResult> UpdateCatalog(int id, FoodCatalogDTO catalog)
 		{
 			try
 			{
-				await _catalogRepository.UpdateCatalog(id, catalog);
+				await _catalogRepository.UpdateCatalog(id, catalog.ToFoodCatalog());
 			}
 			catch (Exception e)
 			{
