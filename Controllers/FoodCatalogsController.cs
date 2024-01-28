@@ -3,6 +3,7 @@ using ProfitTest_Cafeteria.API.Models;
 using ProfitTest_Cafeteria.API.Models.DTO;
 using ProfitTest_Cafeteria.API.Mappers;
 using ProfitTest_Cafeteria.API.Services.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProfitTest_Cafeteria.API.Controllers
 {
@@ -58,6 +59,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
 		}
 
 		[HttpPost()]
+		[Authorize]
 		public async Task<ActionResult> AddCatalog(FoodCatalogDTO catalog)
 		{
 			await _catalogRepository.AddCatalog(catalog.ToFoodCatalog());
@@ -66,6 +68,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
 		}
 
 		[HttpPut("{id}")]
+		[Authorize]
 		public async Task<ActionResult> UpdateCatalog(int id, FoodCatalogDTO catalog)
 		{
 			await _catalogRepository.UpdateCatalog(id, catalog.ToFoodCatalog());
@@ -74,6 +77,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize]
 		public async Task<ActionResult> DeleteCatalog(int id)
 		{
 			await _catalogRepository.DeleteCatalog(id);

@@ -1,4 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using ProfitTest_Cafeteria.API;
 using ProfitTest_Cafeteria.API.DataBase;
 using ProfitTest_Cafeteria.API.Middlewares;
 using ProfitTest_Cafeteria.API.Services;
@@ -13,15 +17,35 @@ builder.Services.AddDbContext<FoodstuffsApiContext>(
 
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 builder.Services.AddScoped<IFoodCatalogRepository, FoodCatalogRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddCors();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+	options.RequireHttpsMetadata = true;
+	options.SaveToken = true;
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuer = true,
+		ValidIssuer = AuthOptions.ISSUER,
+		ValidateAudience = true,
+		ValidAudience = AuthOptions.AUDIENCE,
+		ValidateLifetime = true,
+		IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+		ValidateIssuerSigningKey = true,
+	};
+});
 
 builder.Services.AddTransient<IFoodCatalogExcel, FoodCatalogExcel>();
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
 
+var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
@@ -30,6 +54,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+	MinimumSameSitePolicy = SameSiteMode.Strict,
+	HttpOnly = HttpOnlyPolicy.Always,
+	Secure = CookieSecurePolicy.Always
+});
+
+app.UseMiddleware<CookieJWTAuthentication>();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();

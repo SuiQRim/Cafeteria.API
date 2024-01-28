@@ -13,6 +13,7 @@ namespace ProfitTest_Cafeteria.API.DataBase
 
         public DbSet<Food> Foods { get; set; }
 		public DbSet<FoodCatalog> FoodCatalogs { get; set; }
+		public DbSet<User> Users { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -85,7 +86,14 @@ namespace ProfitTest_Cafeteria.API.DataBase
 
 			modelBuilder.Entity<FoodCatalog>().HasData(catalogs);
 			modelBuilder.Entity<Food>().HasData(foods);
-
+			modelBuilder.Entity<User>().HasData(
+				new User 
+				{ 
+					Id = 1,
+					Login = "Admin",
+					Password = "Admin"
+				}
+			);
 		}
 	}
 }

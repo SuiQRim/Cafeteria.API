@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProfitTest_Cafeteria.API.Mappers;
 using ProfitTest_Cafeteria.API.Models;
 using ProfitTest_Cafeteria.API.Models.DTO;
@@ -34,6 +35,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public async Task<ActionResult<Food>> AddFood(FoodDTO foodDTO)
 		{
 			await _foodRepository.AddFood(foodDTO.ToFood());	
@@ -42,6 +44,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
 		}
 
 		[HttpPut("{id}")]
+		[Authorize]
 		public async Task<ActionResult> UpdateFood(int id, FoodDTO foodDTO)
 		{
             await _foodRepository.UpdateFood(id, foodDTO.ToFood());
@@ -50,6 +53,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
 		}
 
 		[HttpDelete]
+		[Authorize]
 		public async Task<ActionResult> RemoveFood(int id)
 		{
 
