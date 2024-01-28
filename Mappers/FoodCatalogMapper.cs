@@ -1,7 +1,7 @@
-﻿using Profit_Food.API.Models;
-using Profit_Food.API.Models.DTO;
+﻿using ProfitTest_Cafeteria.API.Models;
+using ProfitTest_Cafeteria.API.Models.DTO;
 
-namespace Profit_Food.API.Mappers
+namespace ProfitTest_Cafeteria.API.Mappers
 {
 	public static class FoodCatalogMapper
 	{

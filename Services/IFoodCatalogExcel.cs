@@ -1,6 +1,6 @@
-﻿using Profit_Food.API.Models;
+﻿using ProfitTest_Cafeteria.API.Models;
 
-namespace ProfitTest_Сafeteria.API.Services
+namespace ProfitTest_Cafeteria.API.Services
 {
 	public interface IFoodCatalogExcel
 	{

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Profit_Food.API.DataBase;
-using Profit_Food.API.Exceptions;
-using Profit_Food.API.Models;
+using ProfitTest_Cafeteria.API.DataBase;
+using ProfitTest_Cafeteria.API.Exceptions;
+using ProfitTest_Cafeteria.API.Models;
 
-namespace ProfitTest_Сafeteria.API.Services.Repositories
+namespace ProfitTest_Cafeteria.API.Services.Repositories
 {
     public class FoodRepository : IFoodRepository
     {

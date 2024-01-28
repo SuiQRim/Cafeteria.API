@@ -1,4 +1,4 @@
-﻿namespace Profit_Food.API.Models
+﻿namespace ProfitTest_Cafeteria.API.Models
 {
 	public class FoodCatalog
 	{

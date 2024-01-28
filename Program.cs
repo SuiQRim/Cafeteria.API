@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Profit_Food.API.DataBase;
-using Profit_Food.API.Middlewares;
-using ProfitTest_Ñafeteria.API.Services;
-using ProfitTest_Ñafeteria.API.Services.Repositories;
+using ProfitTest_Cafeteria.API.DataBase;
+using ProfitTest_Cafeteria.API.Middlewares;
+using ProfitTest_Cafeteria.API.Services;
+using ProfitTest_Cafeteria.API.Services.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

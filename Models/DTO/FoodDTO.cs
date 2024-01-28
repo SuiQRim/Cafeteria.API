@@ -1,4 +1,4 @@
-﻿namespace Profit_Food.API.Models.DTO
+﻿namespace ProfitTest_Cafeteria.API.Models.DTO
 {
 	public class FoodDTO
 	{

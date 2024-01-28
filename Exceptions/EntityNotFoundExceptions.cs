@@ -1,4 +1,4 @@
-﻿namespace Profit_Food.API.Exceptions
+﻿namespace ProfitTest_Cafeteria.API.Exceptions
 {
 	public class EntityNotFoundExceptions : Exception
 	{

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Profit_Food.API.Models;
+using ProfitTest_Cafeteria.API.Models;
 
-namespace Profit_Food.API.DataBase
+namespace ProfitTest_Cafeteria.API.DataBase
 {
 	public class FoodstuffsApiContext : DbContext
 	{

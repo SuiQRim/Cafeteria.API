@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Profit_Food.API.Models;
-using Profit_Food.API.Models.DTO;
-using Profit_Food.API.Mappers;
-using ProfitTest_Сafeteria.API.Services.Repositories;
+using ProfitTest_Cafeteria.API.Models;
+using ProfitTest_Cafeteria.API.Models.DTO;
+using ProfitTest_Cafeteria.API.Mappers;
+using ProfitTest_Cafeteria.API.Services.Repositories;
 
-namespace Profit_Food.API.Controllers
+namespace ProfitTest_Cafeteria.API.Controllers
 {
     [Route("api/[controller]")]
 	[ApiController]

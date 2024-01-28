@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Profit_Food.API.Exceptions;
+using ProfitTest_Cafeteria.API.Exceptions;
 using System.Net;
 using System.Text.Json;
 
-namespace Profit_Food.API.Middlewares
+namespace ProfitTest_Cafeteria.API.Middlewares
 {
 	public class GlobalExceptionHandlingMiddleware : IMiddleware
 	{
