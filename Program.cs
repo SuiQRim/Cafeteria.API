@@ -7,6 +7,7 @@ using ProfitTest_Cafeteria.API.DataBase;
 using ProfitTest_Cafeteria.API.Middlewares;
 using ProfitTest_Cafeteria.API.Services;
 using ProfitTest_Cafeteria.API.Services.Repositories;
+using ProfitTest_Cafeteria.API.Services.Repositories.IRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

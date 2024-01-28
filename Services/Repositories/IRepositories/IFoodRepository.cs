@@ -1,6 +1,7 @@
 ﻿using ProfitTest_Cafeteria.API.Models;
+using ProfitTest_Cafeteria.API.Models.DTO;
 
-namespace ProfitTest_Cafeteria.API.Services.Repositories
+namespace ProfitTest_Cafeteria.API.Services.Repositories.IRepositories
 {
     public interface IFoodRepository
     {
@@ -8,9 +9,9 @@ namespace ProfitTest_Cafeteria.API.Services.Repositories
 
         public Task<Food?> GetFood(int id);
 
-        public Task AddFood(Food food);
+        public Task AddFood(FoodDTO food);
 
-        public Task UpdateFood(int id, Food food);
+        public Task UpdateFood(int id, FoodDTO food);
         public Task DeleteFood(int id);
     }
 }

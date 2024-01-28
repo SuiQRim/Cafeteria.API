@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProfitTest_Cafeteria.API.Exceptions;
 using ProfitTest_Cafeteria.API.Models;
 using ProfitTest_Cafeteria.API.Models.DTO;
-using ProfitTest_Cafeteria.API.Services.Repositories;
+using ProfitTest_Cafeteria.API.Services.Repositories.IRepositories;
 
 namespace ProfitTest_Cafeteria.API.Controllers
 {
@@ -49,9 +49,9 @@ namespace ProfitTest_Cafeteria.API.Controllers
 			return Ok();	
 		}
 
-		[HttpGet("start={start}&batchSize={batchSize}")]
+		[HttpGet("collection")]
 		[Authorize]
-		public async Task<ActionResult<IEnumerable<User>>> GetUsers([FromRoute] int start, [FromRoute] int batchSize)
+		public async Task<ActionResult<IEnumerable<User>>> GetUsers([FromQuery] int start, [FromQuery] int batchSize)
         {
             return Ok(await _repository.GetCollection(start, batchSize));
         }
@@ -69,7 +69,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
         {
             await _repository.Update(user, id);
 
-            return NoContent();
+            return Accepted();
         }
 
 
@@ -77,7 +77,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
         public async Task<ActionResult<User>> AddUser(UserDTO user)
         {
             await _repository.Add(user);
-            return Ok();
+            return Accepted();
         }
 
 

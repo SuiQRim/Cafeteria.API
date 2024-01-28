@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProfitTest_Cafeteria.API.Models;
 using ProfitTest_Cafeteria.API.Models.DTO;
-using ProfitTest_Cafeteria.API.Mappers;
-using ProfitTest_Cafeteria.API.Services.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using ProfitTest_Cafeteria.API.Services.Repositories.IRepositories;
 
 namespace ProfitTest_Cafeteria.API.Controllers
 {
@@ -18,9 +17,9 @@ namespace ProfitTest_Cafeteria.API.Controllers
 		}
 
         [HttpGet("{id}")]
-		public async Task<ActionResult<FoodCatalog>> GetCatalog(int id)
+		public async Task<ActionResult<FoodCatalog>> GetCatalog(int id, [FromQuery] bool withFood)
 		{
-			FoodCatalog catalog = await _catalogRepository.GetCatalog(id);
+			FoodCatalog catalog = withFood ? await _catalogRepository.GetCatalogWithFood(id) : await _catalogRepository.GetCatalog(id);
 	
 			return Ok(catalog);
 		}
@@ -33,45 +32,28 @@ namespace ProfitTest_Cafeteria.API.Controllers
 			return File(stream, "application/octet-stream", "FoodCatalog.xlsx");
 		}
 
-
-		[HttpGet("withFood/{id}")]
-		public async Task<ActionResult<FoodCatalog>> GetCatalogWithFood(int id)
-		{
-			FoodCatalog catalog = await _catalogRepository.GetCatalogWithFood(id);
-	
-			return Ok(catalog);
-		}
-
 		[HttpGet("collection")]
-		public async Task<ActionResult<IEnumerable<FoodCatalog>>> GetCatalogs()
+		public async Task<ActionResult<IEnumerable<FoodCatalog>>> GetCatalogs([FromQuery] bool withFood)
 		{
-			IEnumerable<FoodCatalog> catalogs = await _catalogRepository.GetCatalogs();
+			IEnumerable<FoodCatalog> catalogs = withFood ? await _catalogRepository.GetCatalogsWithFood() : await _catalogRepository.GetCatalogs();
 
 			return Ok(catalogs);
 		}
 
-		[HttpGet("collection/withFood")]
-		public async Task<ActionResult<IEnumerable<FoodCatalog>>> GetCatalogsWithFood()
-		{
-			IEnumerable<FoodCatalog> catalogs = await _catalogRepository.GetCatalogsWithFood();
-
-			return Ok(catalogs);
-		}
-
-		[HttpPost()]
+		[HttpPost("add")]
 		[Authorize]
 		public async Task<ActionResult> AddCatalog(FoodCatalogDTO catalog)
 		{
-			await _catalogRepository.AddCatalog(catalog.ToFoodCatalog());
+			await _catalogRepository.AddCatalog(catalog);
 
-			return Ok();
+			return Accepted();
 		}
 
 		[HttpPut("{id}")]
 		[Authorize]
 		public async Task<ActionResult> UpdateCatalog(int id, FoodCatalogDTO catalog)
 		{
-			await _catalogRepository.UpdateCatalog(id, catalog.ToFoodCatalog());
+			await _catalogRepository.UpdateCatalog(id, catalog);
 
 			return Accepted(catalog);
 		}
@@ -82,7 +64,7 @@ namespace ProfitTest_Cafeteria.API.Controllers
 		{
 			await _catalogRepository.DeleteCatalog(id);
 
-			return Ok();
+			return Accepted();
 		}
 
 	}

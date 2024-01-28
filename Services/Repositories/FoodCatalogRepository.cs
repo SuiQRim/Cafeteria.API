@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProfitTest_Cafeteria.API.DataBase;
 using ProfitTest_Cafeteria.API.Models;
-using OfficeOpenXml;
-using System.Drawing;
-using OfficeOpenXml.Style;
 using ProfitTest_Cafeteria.API.Exceptions;
+using ProfitTest_Cafeteria.API.Services.Repositories.IRepositories;
+using ProfitTest_Cafeteria.API.Models.DTO;
+using ProfitTest_Cafeteria.API.Mappers;
 
 namespace ProfitTest_Cafeteria.API.Services.Repositories
 {
@@ -56,15 +56,15 @@ namespace ProfitTest_Cafeteria.API.Services.Repositories
             return foodCatalogs;
         }
 
-        public async Task AddCatalog(FoodCatalog catalog)
+        public async Task AddCatalog(FoodCatalogDTO catalog)
         {
-            await _context.FoodCatalogs.AddAsync(catalog);
+            await _context.FoodCatalogs.AddAsync(catalog.ToFoodCatalog());
             await _context.SaveChangesAsync();
         }
 
 
 
-        public async Task UpdateCatalog(int id, FoodCatalog catalog)
+        public async Task UpdateCatalog(int id, FoodCatalogDTO catalog)
         {
             var entity = await _context.FoodCatalogs.FirstOrDefaultAsync(f => f.Id == id);
 

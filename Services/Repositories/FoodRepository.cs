@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProfitTest_Cafeteria.API.DataBase;
 using ProfitTest_Cafeteria.API.Exceptions;
+using ProfitTest_Cafeteria.API.Mappers;
 using ProfitTest_Cafeteria.API.Models;
+using ProfitTest_Cafeteria.API.Models.DTO;
+using ProfitTest_Cafeteria.API.Services.Repositories.IRepositories;
 
 namespace ProfitTest_Cafeteria.API.Services.Repositories
 {
@@ -29,9 +32,9 @@ namespace ProfitTest_Cafeteria.API.Services.Repositories
             return list;
         }
 
-        public async Task AddFood(Food food)
+        public async Task AddFood(FoodDTO food)
         {
-            await _context.Foods.AddAsync(food);
+            await _context.Foods.AddAsync(food.ToFood());
             await _context.SaveChangesAsync();
         }
 
@@ -47,7 +50,7 @@ namespace ProfitTest_Cafeteria.API.Services.Repositories
         }
 
 
-        public async Task UpdateFood(int id, Food food)
+        public async Task UpdateFood(int id, FoodDTO food)
         {
             Food? entity = await FindById(id);
 

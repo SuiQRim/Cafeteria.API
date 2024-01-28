@@ -1,30 +1,29 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProfitTest_Cafeteria.API.Mappers;
 using ProfitTest_Cafeteria.API.Models;
 using ProfitTest_Cafeteria.API.Models.DTO;
-using ProfitTest_Cafeteria.API.Services.Repositories;
+using ProfitTest_Cafeteria.API.Services.Repositories.IRepositories;
 
 namespace ProfitTest_Cafeteria.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class FoodsController : ControllerBase
-    {
-        private readonly IFoodRepository _foodRepository;
+	[ApiController]
+	public class FoodsController : ControllerBase
+	{
+		private readonly IFoodRepository _foodRepository;
 
-        public FoodsController(IFoodRepository foodRepository)
-        {
-            _foodRepository = foodRepository;
-        }
+		public FoodsController(IFoodRepository foodRepository)
+		{
+			_foodRepository = foodRepository;
+		}
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
-        {
+		[HttpGet("collection")]
+		public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
+		{
 			List<Food> foods = await _foodRepository.GetFoods();
 
-            return Ok(foods);
-        }
+			return Ok(foods);
+		}
 
 		[HttpGet("{id}")]
 		public async Task<ActionResult<Food>> GetFood(int id)
@@ -34,32 +33,32 @@ namespace ProfitTest_Cafeteria.API.Controllers
 			return Ok(food);
 		}
 
-		[HttpPost]
+		[HttpPost("add")]
 		[Authorize]
 		public async Task<ActionResult<Food>> AddFood(FoodDTO foodDTO)
 		{
-			await _foodRepository.AddFood(foodDTO.ToFood());	
+			await _foodRepository.AddFood(foodDTO);
 
 			return Accepted();
 		}
 
-		[HttpPut("{id}")]
+		[HttpPut("edit/{id}")]
 		[Authorize]
 		public async Task<ActionResult> UpdateFood(int id, FoodDTO foodDTO)
 		{
-            await _foodRepository.UpdateFood(id, foodDTO.ToFood());
+			await _foodRepository.UpdateFood(id, foodDTO);
 
-			return Ok();
+			return Accepted();
 		}
 
-		[HttpDelete]
+		[HttpDelete("{id}")]
 		[Authorize]
 		public async Task<ActionResult> RemoveFood(int id)
 		{
 
 			await _foodRepository.DeleteFood(id);
 		
-			return Ok();
+			return Accepted();
 		}
 	}
 }

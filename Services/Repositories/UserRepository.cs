@@ -4,12 +4,13 @@ using ProfitTest_Cafeteria.API.DataBase;
 using ProfitTest_Cafeteria.API.Exceptions;
 using ProfitTest_Cafeteria.API.Models;
 using ProfitTest_Cafeteria.API.Models.DTO;
+using ProfitTest_Cafeteria.API.Services.Repositories.IRepositories;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace ProfitTest_Cafeteria.API.Services.Repositories
 {
-	public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
 	{
 		private readonly FoodstuffsApiContext _context;
 
