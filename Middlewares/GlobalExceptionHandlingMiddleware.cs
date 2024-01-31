@@ -26,8 +26,8 @@ namespace ProfitTest_Cafeteria.API.Middlewares
 				ProblemDetails problem = new()
 				{
 					Status = (int)HttpStatusCode.NotFound,
-					Type = "Bad Request",
-					Title = "Bad Request",
+					Type = "Not Found",
+					Title = "Not Found",
 					Detail = e.Message
 				};
 				var json = JsonSerializer.Serialize(problem);
